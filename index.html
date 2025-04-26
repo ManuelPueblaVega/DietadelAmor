@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plan Semanal de Alimentación Saludable</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+
+  <h1 class="text-3xl font-bold text-center mb-2">Plan Semanal de Alimentación Saludable</h1>
+  <p class="text-lg text-center mb-6">(Sin Gluten / Sin Lactosa)</p>
+
+  <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl">
+    <p class="text-gray-700"><strong>🎯 Objetivo:</strong> Bajar 5 kg en 3 meses, cuidando digestión, presupuesto y bienestar.</p>
+    <p class="text-gray-700"><strong>💧 Hidratación:</strong> Beber al menos 2 litros de agua diarios.</p>
+    <hr class="my-4">
+    <p class="text-gray-700"><strong>🕰️ Horarios de comida:</strong></p>
+    <ul class="list-none space-y-1">
+      <li>🕘 Desayuno: 9:00 am</li>
+      <li>🍏 Media mañana: 11:30 am</li>
+      <li>🍽️ Almuerzo: 2:00 pm</li>
+      <li>🥛 Merienda: 5:00 pm</li>
+      <li>🌙 Cena: 7:00 pm</li>
+    </ul>
+    <hr class="my-4">
+    <p class="text-gray-700"><strong>📝 Notas:</strong> Sin gluten ni lácteos tradicionales. Usar leche vegetal sin azúcar y galletas de arroz.</p>
+  </div>
+
+  <div id="tabs" class="flex flex-wrap justify-center gap-2 my-6"></div>
+
+  <div id="meals" class="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl"></div>
+
+  <div class="text-center mt-6">
+    <p class="text-green-600 font-bold">✅ Con constancia lograremos que no nos digan Guatones ql cuando lleguemos a Chile</p>
+    <p class="text-gray-700">Plan creado para Manuel y al Potito Rico 💚</p>
+    <p class="text-gray-700">🌟 ¡Un camino saludable, juntos!</p>
+  </div>
+
+  <script>
+    const days = {
+      Lunes: {
+        Desayuno: '🍳 Huevos revueltos + 🍅 tomate + 🍚 galletas arroz + ☕ café vegetal',
+        'Media mañana': '🍎 Manzana o 🍐 pera',
+        Almuerzo: '🍗 Pollo a la plancha + 🥗 ensalada + 🥔 ½ papa',
+        Merienda: '🥛 Yogur vegetal',
+        Cena: '🥚 Omelette de espinacas'
+      },
+      Martes: {
+        Desayuno: '🍌 Batido de plátano + 🍓 frutilla + 💧 agua',
+        'Media mañana': '🥚 1 huevo duro',
+        Almuerzo: '🐟 Atún + 🥬 repollo + 🥕 zanahoria',
+        Merienda: '🥛 Yogur vegetal',
+        Cena: '🐟 Atún + 🍅 tomate + 🥒 pepino'
+      },
+      Miércoles: {
+        Desayuno: '🍚 Galletas arroz + 🥑 palta + ☕ café vegetal',
+        'Media mañana': '🥛 Yogur vegetal pequeño',
+        Almuerzo: '🌮 Tacos de maíz + 🍗 pollo + 🥑 guacamole',
+        Merienda: '🍎 1 fruta',
+        Cena: '🐟 Atún + 🥗 ensalada'
+      },
+      Jueves: {
+        Desayuno: '🍚 Galletas arroz + 🥑 palta',
+        'Media mañana': '🥛 Yogur vegetal',
+        Almuerzo: '🍗 Pollo al horno + 🥕 verduras asadas',
+        Merienda: '🥚 1 huevo duro',
+        Cena: '🐟 Ensalada de atún'
+      },
+      Viernes: {
+        Desayuno: '🍌 Smoothie de plátano + 🍓 frutilla + 💧 agua',
+        'Media mañana': '🍎 1 fruta',
+        Almuerzo: '🍲 Lentejas cocidas con 🥕 verduras',
+        Merienda: '🥛 Yogur vegetal',
+        Cena: '🍗 Pollo a la plancha + 🥗 ensalada'
+      },
+      Sábado: {
+        Desayuno: '🍚 Galletas arroz + 🥑 palta + 🍅 tomate + ☕ café vegetal',
+        'Media mañana': '🥚 1 huevo duro',
+        Almuerzo: '🦃 Pavo a la plancha + 🥗 ensalada + 🥔 ½ papa',
+        Merienda: '🥛 Yogur vegetal',
+        Cena: '🍄 Omelette de champiñones'
+      },
+      Domingo: {
+        Desayuno: '🍌 Smoothie de plátano y 🍓 frutilla',
+        'Media mañana': '🍎 1 fruta',
+        Almuerzo: '🥕 Verduras asadas + 🥗 ensalada',
+        Merienda: '🥛 Yogur vegetal',
+        Cena: '🐟 Atún con ensalada verde'
+      }
+    };
+
+    const tabsContainer = document.getElementById('tabs');
+    const mealsContainer = document.getElementById('meals');
+
+    function showMeals(day) {
+      mealsContainer.innerHTML = '';
+      for (const meal in days[day]) {
+        const p = document.createElement('p');
+        p.className = 'text-gray-700 mb-2 text-lg';
+        p.innerHTML = `<strong>${meal}:</strong> ${days[day][meal]}`;
+        mealsContainer.appendChild(p);
+      }
+
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('bg-gray-300'));
+      document.getElementById(day).classList.add('bg-gray-300');
+    }
+
+    for (const day in days) {
+      const btn = document.createElement('button');
+      btn.textContent = day;
+      btn.id = day;
+      btn.className = 'tab-button bg-gray-200 py-2 px-4 rounded-md hover:bg-gray-300 transition';
+      btn.onclick = (event) => showMeals(event.target.id);
+      tabsContainer.appendChild(btn);
+    }
+
+    showMeals('Lunes');
+    document.getElementById('Lunes').classList.add('bg-gray-300');
+  </script>
+
+</body>
+</html>
